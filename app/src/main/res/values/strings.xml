@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Get Up Lord</string>
+    <string name="WelcomeText">Welcome to GetUpLord!</string>
+    <string name="AppInformation">We help you choose your outfits without having to try on clothes. ;)</string>
+</resources>

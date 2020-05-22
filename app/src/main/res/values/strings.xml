@@ -2,4 +2,7 @@
     <string name="app_name">Get Up Lord</string>
     <string name="WelcomeText">Welcome to GetUpLord!</string>
     <string name="AppInformation">We help you choose your outfits without having to try on clothes. ;)</string>
+    <string name="CreateOutfit">Create Outfit</string>
+    <string name="AddClothingItem">Add a clothing item</string>
+    <string name="Preferences">Preferences</string>
 </resources>

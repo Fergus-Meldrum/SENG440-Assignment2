@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Levántate señor</string>
+    <string name="WelcomeText">¡Bienvenido a GetUpLord!</string>
+    <string name="AppInformation">Te ayudamos a elegir tu atuendo sin tener que probarte la ropa. ;)</string>
+    <string name="CreateOutfit">Crear atuendo</string>
+    <string name="AddClothingItem">Agregar una prenda de vestir</string>
+    <string name="Preferences">Preferencias</string>
+</resources>

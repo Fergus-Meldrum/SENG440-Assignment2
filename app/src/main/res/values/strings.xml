@@ -5,4 +5,6 @@
     <string name="CreateOutfit">Create Outfit</string>
     <string name="AddClothingItem">Add a clothing item</string>
     <string name="Preferences">Preferences</string>
+
+    <string name="ChangeToDarkMode">Dark Mode</string>
 </resources>

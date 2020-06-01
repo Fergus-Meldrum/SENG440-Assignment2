@@ -5,4 +5,10 @@
     <string name="CreateOutfit">Crear atuendo</string>
     <string name="AddClothingItem">Agregar una prenda de vestir</string>
     <string name="Preferences">Preferencias</string>
+
+    <string name="ChangeToDarkMode">Modo oscuro</string>
+    <string name="title_activity_settings">Configuraciones</string>
+
+    <string name="action_settings">Preferencias</string>
+
 </resources>

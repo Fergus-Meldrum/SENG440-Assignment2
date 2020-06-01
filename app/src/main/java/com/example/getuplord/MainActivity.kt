@@ -1,11 +1,16 @@
 package com.example.getuplord
 
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.widget.Button
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import com.example.getuplord.R.id.toolbar
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,18 +19,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val addItemButton: Button = findViewById(R.id.addItemButton)
-        val preferencesButton: Button = findViewById(R.id.button3)
-
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
 
         addItemButton.setOnClickListener {
             val intent = Intent(this, addItem::class.java)
             startActivity(intent)
         }
 
-        preferencesButton.setOnClickListener {
+        setSupportActionBar(findViewById(toolbar))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu_actions, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_settings -> {
             val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            true
+        }
+
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -20,7 +21,6 @@ import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
 import android.widget.*
-import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -95,6 +95,18 @@ class addItem : AppCompatActivity() , LifecycleOwner {
 
             if (fileSet && nameSet ){
                 Log.d("success", "type: $clothingType, location: $photoLocation, name: $clothingName")
+                val insertPhotoIntent = Intent()
+//                insertPhotoIntent.putExtra("name", clothingName)
+//                insertPhotoIntent.putExtra("location", photoLocation)
+//                insertPhotoIntent.putExtra("type", clothingType)
+
+                val array = arrayListOf<String>()
+                array.addAll(listOf(clothingName, clothingType, photoLocation))
+                insertPhotoIntent.putExtra("listOfValues", array)
+
+                setResult(Activity.RESULT_OK, insertPhotoIntent)
+                finish()
+
             } else {
                 Toast.makeText(this, "Please enter all of the fields", Toast.LENGTH_SHORT).show()
             }

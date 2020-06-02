@@ -1,18 +1,20 @@
 package com.example.getuplord
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 
 class ChooseClothingType : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     lateinit var selectedType: String
+
+    //request code for result activity
+    private val newWordActivityRequestCode2 = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,7 @@ class ChooseClothingType : AppCompatActivity(), AdapterView.OnItemSelectedListen
             val intent = Intent(this, addItem::class.java)
             intent.putExtra("selectedClothingType", selectedType)
             // make this for result later
-            startActivity(intent)
+            startActivityForResult(intent, newWordActivityRequestCode2, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
     }
@@ -53,4 +55,20 @@ class ChooseClothingType : AppCompatActivity(), AdapterView.OnItemSelectedListen
         // Another interface callback
         Log.d("problem", "problem selecting clothing type")
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == newWordActivityRequestCode2 && resultCode == Activity.RESULT_OK){
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        } else {
+            //could change this to finish with a bad result code
+            Toast.makeText(
+                applicationContext,
+                "photo not saved properly!",
+                Toast.LENGTH_LONG).show()
+        }
+    }
+
 }

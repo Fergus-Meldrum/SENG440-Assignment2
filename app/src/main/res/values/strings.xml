@@ -10,5 +10,18 @@
     <string name="title_activity_settings">Settings</string>
 
     <string name="action_settings">Preferences</string>
+    <string name="chooseTypeMessage">Choose the clothing type you want to add</string>
+    <string name="NextButton">Next</string>
+    <string name="addItemButton">Add</string>
+
+    //selections for spinner
+    <string-array name="clothing_types">
+        <item>Head-Wear</item>
+        <item>Shirt</item>
+        <item>Coat</item>
+        <item>Pants</item>
+        <item>Socks</item>
+        <item>Shoes</item>
+    </string-array>
 
 </resources>

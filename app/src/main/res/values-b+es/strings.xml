@@ -10,5 +10,8 @@
     <string name="title_activity_settings">Configuraciones</string>
 
     <string name="action_settings">Preferencias</string>
+    <string name="chooseTypeMessage">Choose the clothing type you want to add</string>
+    <string name="NextButton">Next</string>
+    <string name="addItemButton">Add</string>
 
 </resources>

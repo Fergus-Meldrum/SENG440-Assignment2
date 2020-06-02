@@ -13,18 +13,18 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.withStyledAttributes
 import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.io.IOException
@@ -43,36 +43,69 @@ private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 class addItem : AppCompatActivity() , LifecycleOwner {
 
     lateinit var imagePreview: ImageView
-    lateinit var takePhoto: Button
+    lateinit var takePhoto: ImageButton
     lateinit var imageBitmap: Bitmap
+
+    lateinit var clothingType: String
+    lateinit var photoLocation: String
+    lateinit var clothingName: String
+
+    private var fileSet: Boolean = false
+    private var nameSet: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
 
+        //retrieving clothing type selection from previous activity
+        clothingType = intent.getStringExtra("selectedClothingType")
+
+
         imagePreview = findViewById(R.id.photoPreview)
 
-        takePhoto = findViewById(R.id.button2)
+        takePhoto = findViewById(R.id.capture_button)
 
         takePhoto.setOnClickListener {
             dispatchTakePictureIntent()
         }
 
+        val editText: EditText = findViewById(R.id.itemName)
 
 
-//        BitmapFactory.decodeFile("/storage/emulated/0/Android/data/com.example.getuplord/files/Pictures/JPEG_testPic1_7510796440909568314.jpg")?.also { bitmap ->
-//            imageBitmap = bitmap
-//        }
-//
-//        val matrix = Matrix()
-//        matrix.postRotate(90F)
-//
-//        val scaledBitmap : Bitmap = Bitmap.createScaledBitmap(imageBitmap, 640, 640, true)
-//        val rotatedImage: Bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, 640, 640, matrix, true)
-//
-//        imagePreview.setImageBitmap(rotatedImage)
 
-        // Add this at the end of onCreate function
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                nameSet = true
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+
+        val addItemButton: Button = findViewById(R.id.addButton)
+
+        addItemButton.setOnClickListener{
+            //getting the text input
+            val editableClothingName: Editable = editText.text
+            clothingName = editableClothingName.toString()
+
+            if (fileSet && nameSet ){
+                Log.d("success", "type: $clothingType, location: $photoLocation, name: $clothingName")
+            } else {
+                Toast.makeText(this, "Please enter all of the fields", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
+
+
+
+
+         //Add this at the end of onCreate function
 
 //        viewFinder = findViewById(R.id.view_finder)
 //
@@ -91,9 +124,6 @@ class addItem : AppCompatActivity() , LifecycleOwner {
 
 
     }
-
-    //new code from andriod docs
-
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -114,8 +144,6 @@ class addItem : AppCompatActivity() , LifecycleOwner {
                         "com.example.android.fileprovider",
                         it
                     )
-                    val photoPath: String = photoFile.invariantSeparatorsPath
-                    Log.d("check1", photoPath)
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 }
@@ -123,22 +151,12 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         }
     }
 
-//    private fun dispatchTakePictureIntent() {
-//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//            takePictureIntent.resolveActivity(packageManager)?.also {
-//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//            }
-//        }
-//    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Log.d("check2", "getting into if statement")
 //            val imageBitmap = data?.extras?.get("data") as Bitmap
 //            imagePreview.setImageBitmap(imageBitmap)
-            BitmapFactory.decodeFile("/storage/emulated/0/Android/data/com.example.getuplord/files/Pictures/JPEG_testPic1_3304633960654210402.jpg")?.also { bitmap ->
-                imagePreview.setImageBitmap(bitmap)
-            }
+            setImageToHolder()
         }
     }
 
@@ -147,7 +165,7 @@ class addItem : AppCompatActivity() , LifecycleOwner {
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
-        val fileName: String = "testPic1"
+        val fileName: String = clothingType
         val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "JPEG_${fileName}_", /* prefix */
@@ -155,8 +173,26 @@ class addItem : AppCompatActivity() , LifecycleOwner {
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            currentPhotoPath = absolutePath
+            photoLocation = absolutePath
+            Log.d("check1", photoLocation)
         }
+    }
+
+    private fun setImageToHolder() {
+        BitmapFactory.decodeFile(photoLocation)?.also { bitmap ->
+            imageBitmap = bitmap
+        }
+
+        val matrix = Matrix()
+        matrix.postRotate(90F)
+
+        //scaling photo to fit size of holder
+        val scaledBitmap : Bitmap = Bitmap.createScaledBitmap(imageBitmap, 640, 640, true)
+        //rotating image to be upright
+        val rotatedImage: Bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, 640, 640, matrix, true)
+
+        imagePreview.setImageBitmap(rotatedImage)
+        fileSet = true
     }
 
 

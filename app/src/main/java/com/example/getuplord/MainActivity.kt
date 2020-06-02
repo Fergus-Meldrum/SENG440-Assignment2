@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
         val addItemButton: Button = findViewById(R.id.addItemButton)
 
         addItemButton.setOnClickListener {
-            val intent = Intent(this, addItem::class.java)
+            //change this to start activity for result later
+            val intent = Intent(this, ChooseClothingType::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 

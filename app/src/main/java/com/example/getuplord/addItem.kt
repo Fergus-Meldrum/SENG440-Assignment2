@@ -60,17 +60,17 @@ class addItem : AppCompatActivity() , LifecycleOwner {
 
 
 
-        BitmapFactory.decodeFile("/storage/emulated/0/Android/data/com.example.getuplord/files/Pictures/JPEG_testPic1_7510796440909568314.jpg")?.also { bitmap ->
-            imageBitmap = bitmap
-        }
-
-        val matrix = Matrix()
-        matrix.postRotate(90F)
-
-        val scaledBitmap : Bitmap = Bitmap.createScaledBitmap(imageBitmap, 640, 640, true)
-        val rotatedImage: Bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, 640, 640, matrix, true)
-
-        imagePreview.setImageBitmap(rotatedImage)
+//        BitmapFactory.decodeFile("/storage/emulated/0/Android/data/com.example.getuplord/files/Pictures/JPEG_testPic1_7510796440909568314.jpg")?.also { bitmap ->
+//            imageBitmap = bitmap
+//        }
+//
+//        val matrix = Matrix()
+//        matrix.postRotate(90F)
+//
+//        val scaledBitmap : Bitmap = Bitmap.createScaledBitmap(imageBitmap, 640, 640, true)
+//        val rotatedImage: Bitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, 640, 640, matrix, true)
+//
+//        imagePreview.setImageBitmap(rotatedImage)
 
         // Add this at the end of onCreate function
 

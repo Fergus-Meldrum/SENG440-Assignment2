@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         addItemButton.setOnClickListener {
             val intent = Intent(this, addItem::class.java)
-            startActivity(intent)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
         setSupportActionBar(findViewById(toolbar))

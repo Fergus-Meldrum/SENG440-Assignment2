@@ -37,6 +37,14 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, newPhotoActivityRequestCode, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
+        //button for creating an outfit
+        val createOutfitButton: Button = findViewById(R.id.createOutfitButton)
+        createOutfitButton.setOnClickListener {
+            //change this to start activity for result later
+            val intent = Intent(this, CreateOutfit::class.java)
+            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+        }
+
         setSupportActionBar(findViewById(toolbar))
     }
 

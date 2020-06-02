@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateOutfit"></activity>
+        <activity android:name=".SelectItem"></activity>
+        <activity android:name=".CreateOutfit" />
         <activity android:name=".ChooseClothingType" />
         <activity
             android:name=".SettingsActivity"

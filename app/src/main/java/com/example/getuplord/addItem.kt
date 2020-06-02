@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.util.Size
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Environment
@@ -17,19 +15,11 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Surface
-import android.view.TextureView
-import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.core.content.withStyledAttributes
 import androidx.lifecycle.LifecycleOwner
 import java.io.File
 import java.io.IOException
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 
 
 private const val REQUEST_IMAGE_CAPTURE = 1
@@ -61,7 +51,7 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         clothingType = intent.getStringExtra("selectedClothingType")
 
 
-        imagePreview = findViewById(R.id.photoPreview)
+        imagePreview = findViewById(R.id.shirt)
 
         takePhoto = findViewById(R.id.capture_button)
 

@@ -13,5 +13,11 @@
     <string name="chooseTypeMessage">Choose the clothing type you want to add</string>
     <string name="NextButton">Next</string>
     <string name="addItemButton">Add</string>
+    <string name="SelectHeadWear">Head-Wear</string>
+    <string name="SelectCoat">Coat</string>
+    <string name="SelectShirt">Shirt</string>
+    <string name="SelectPants">Pants</string>
+    <string name="Shoes" />
+    <string name="SelectSocks">Socks</string>
 
 </resources>

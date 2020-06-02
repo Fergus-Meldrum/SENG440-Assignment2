@@ -33,7 +33,7 @@ class PhotoListAdapter internal constructor(
 
         itemView.setOnClickListener{
             //add selected item stuff??
-            clickListener(photos[holder.adapterPosition].type)
+            clickListener(photos[holder.adapterPosition].location)
         }
         return holder
     }

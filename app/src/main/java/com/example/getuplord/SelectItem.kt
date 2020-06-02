@@ -1,5 +1,6 @@
 package com.example.getuplord
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,11 +22,11 @@ class SelectItem : AppCompatActivity() {
         set(value) {
             field = value
             val adapter = PhotoListAdapter(this, field) {
-//                val intent = Intent(this, PrintWord::class.java)
-//                intent.putExtra("selectedWord", it)
-//                startActivity(intent)
-                Log.d("hi_message", "hi")
-                // add code to return the right word's filepath
+                //sending filepath back to outfit builder
+                val intent = Intent()
+                intent.putExtra("photoFilePath", it)
+                setResult(Activity.RESULT_OK, intent)
+                finish()
             }
             recyclerView.adapter = adapter
         }

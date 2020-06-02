@@ -51,7 +51,7 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         clothingType = intent.getStringExtra("selectedClothingType")
 
 
-        imagePreview = findViewById(R.id.shirt)
+        imagePreview = findViewById(R.id.clothingItem)
 
         takePhoto = findViewById(R.id.capture_button)
 

@@ -30,6 +30,9 @@ private const val REQUEST_CODE_PERMISSIONS = 10
 // This is an array of all the permission specified in the manifest.
 private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
+/**
+ * activity for taking photo of clothing item, giving it a name and saving item
+ */
 class addItem : AppCompatActivity() , LifecycleOwner {
 
     lateinit var imagePreview: ImageView
@@ -62,7 +65,7 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         val editText: EditText = findViewById(R.id.itemName)
 
 
-
+        // confirming photo has been named
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 nameSet = true
@@ -78,6 +81,7 @@ class addItem : AppCompatActivity() , LifecycleOwner {
 
         val addItemButton: Button = findViewById(R.id.addButton)
 
+
         addItemButton.setOnClickListener{
             //getting the text input
             val editableClothingName: Editable = editText.text
@@ -86,10 +90,8 @@ class addItem : AppCompatActivity() , LifecycleOwner {
             if (fileSet && nameSet ){
                 Log.d("success", "type: $clothingType, location: $photoLocation, name: $clothingName")
                 val insertPhotoIntent = Intent()
-//                insertPhotoIntent.putExtra("name", clothingName)
-//                insertPhotoIntent.putExtra("location", photoLocation)
-//                insertPhotoIntent.putExtra("type", clothingType)
 
+                //adding clothing item's details to intent to be sent back to main activity
                 val array = arrayListOf<String>()
                 array.addAll(listOf(clothingName, clothingType, photoLocation))
                 insertPhotoIntent.putExtra("listOfValues", array)
@@ -103,36 +105,19 @@ class addItem : AppCompatActivity() , LifecycleOwner {
 
         }
 
-
-
-
-
-         //Add this at the end of onCreate function
-
-//        viewFinder = findViewById(R.id.view_finder)
-//
-//        // Request camera permissions
-//        if (allPermissionsGranted()) {
-//            viewFinder.post { startCamera() }
-//        } else {
-//            ActivityCompat.requestPermissions(
-//                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-//        }
-//
-//        // Every time the provided texture view changes, recompute layout
-//        viewFinder.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-//            updateTransform()
-//        }
-
-
     }
 
+    /**
+     * starts the camera app to capture photo of clothing item
+     */
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
             takePictureIntent.resolveActivity(packageManager)?.also {
                 // Create the File where the photo should go
                 val photoFile: File? = try {
+
+                    //create file for photo
                     createImageFile()
                 } catch (ex: IOException) {
                     // Error occurred while creating the File
@@ -153,17 +138,18 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         }
     }
 
+    /**
+     * handles photo after it is taken and we return back to the app
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Log.d("check2", "getting into if statement")
-//            val imageBitmap = data?.extras?.get("data") as Bitmap
-//            imagePreview.setImageBitmap(imageBitmap)
             setImageToHolder()
         }
     }
 
-    lateinit var currentPhotoPath: String
-
+    /**
+     * creates file at specific location for clothing item photo
+     */
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
@@ -176,10 +162,12 @@ class addItem : AppCompatActivity() , LifecycleOwner {
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
             photoLocation = absolutePath
-            Log.d("check1", photoLocation)
         }
     }
 
+    /**
+     * sets photo preview to in app screen
+     */
     private fun setImageToHolder() {
         BitmapFactory.decodeFile(photoLocation)?.also { bitmap ->
             imageBitmap = bitmap

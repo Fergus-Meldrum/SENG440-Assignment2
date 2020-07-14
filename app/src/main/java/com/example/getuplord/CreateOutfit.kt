@@ -12,6 +12,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 
+/**
+ * activity for creating outfit
+ */
 class CreateOutfit : AppCompatActivity() {
 
     private val headwearCode: Int = 1
@@ -28,6 +31,7 @@ class CreateOutfit : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_outfit)
 
+        //buttons for selecting respective items from saved lists
         val headwearButton: Button = findViewById(R.id.headwearButton)
         val shirtButton: Button = findViewById(R.id.shirtButton)
         val coatButton: Button = findViewById(R.id.coatButton)
@@ -35,6 +39,7 @@ class CreateOutfit : AppCompatActivity() {
         val socksButton: Button = findViewById(R.id.sockButton)
         val shoesButton: Button = findViewById(R.id.shoesButton)
 
+        //click listeners for buttons to trigger respective selection from saved lists
         headwearButton.setOnClickListener{
             val intent = Intent(this, SelectItem::class.java)
             intent.putExtra("clothingItem", "headwear")
@@ -72,6 +77,9 @@ class CreateOutfit : AppCompatActivity() {
         }
     }
 
+    /**
+     * what to do after returning to activity after selecting clothing item from list
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -111,8 +119,10 @@ class CreateOutfit : AppCompatActivity() {
         }
     }
 
+    /**
+     * sets image for clothing item to correct image holder
+     */
     private fun setImageToHolder(imageFilePath: String, imagePreview: ImageView) {
-        Log.d("check2", "$imageFilePath")
         BitmapFactory.decodeFile(imageFilePath)?.also { bitmap ->
             imageBitmap = bitmap
         }

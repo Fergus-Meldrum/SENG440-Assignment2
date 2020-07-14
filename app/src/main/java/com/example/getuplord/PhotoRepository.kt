@@ -2,8 +2,12 @@ package com.example.getuplord
 
 import androidx.lifecycle.LiveData
 
-// Declares the DAO as a private property in the constructor. Pass in the DAO
-// instead of the whole database, because you only need access to the DAO
+/**
+ * gives secure access to database query results
+ *
+ * Declares the DAO as a private property in the constructor. Pass in the DAO
+ * instead of the whole database, because you only need access to the DAO
+ */
 class PhotoRepository(private val photoDao: PhotoDao) {
 
     // Room executes all queries on a separate thread.

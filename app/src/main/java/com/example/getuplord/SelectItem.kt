@@ -10,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
+/**
+ * list view for selecting clothing items
+ */
 class SelectItem : AppCompatActivity() {
 
     private lateinit var photoViewModel: PhotoViewModel
@@ -18,6 +21,7 @@ class SelectItem : AppCompatActivity() {
 
     lateinit var wordsToObserve: String
 
+    //creating recyclerView adapter including what action to take if clothing item in list is clicked
     private var photoList : MutableList<Photo> = mutableListOf()
         set(value) {
             field = value
@@ -35,6 +39,7 @@ class SelectItem : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_item)
 
+        //initialising access to database to retrieve clothing items from
         photoViewModel = ViewModelProvider(this).get(PhotoViewModel::class.java)
 
         recyclerView = findViewById(R.id.recyclerview)
@@ -46,7 +51,7 @@ class SelectItem : AppCompatActivity() {
         wordsToObserve = intent.getStringExtra("clothingItem")
 
 
-        //chhose what recycler view shows depending on what is passed through
+        //choose what recycler view (list) shows depending on what is passed through from previous activity
         when(wordsToObserve){
             "headwear" -> {
                 photoViewModel.headwearPhotos.observe(this, Observer { photos ->

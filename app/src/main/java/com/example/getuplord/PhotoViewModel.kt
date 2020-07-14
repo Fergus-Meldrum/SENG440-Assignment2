@@ -7,6 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * View Model: connects user view to the database
+ */
 class PhotoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: PhotoRepository
@@ -19,6 +22,8 @@ class PhotoViewModel(application: Application) : AndroidViewModel(application) {
     val socksPhotos: LiveData<List<Photo>>
     val shoesPhotos: LiveData<List<Photo>>
 
+    //retrieving lists of Photo objects from repository
+    //a Photo object represents all information about a clothing item including where it's photo is stored
     init {
         val wordsDao = PhotoRoomDatabase.getDatabase(application).photoDao()
         repository = PhotoRepository(wordsDao)

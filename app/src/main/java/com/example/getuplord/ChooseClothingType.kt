@@ -9,17 +9,21 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 
+/**
+ * activity for choosing the clothing type intended to be added
+ */
 class ChooseClothingType : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     lateinit var selectedType: String
 
     //request code for result activity
-    private val newWordActivityRequestCode2 = 1
+    private val newItemActivityRequestCode2 = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_clothing_type)
 
+        // list of pick-able clothing types
         val typeSpinner: Spinner = findViewById(R.id.types_spinner)
         typeSpinner.onItemSelectedListener = this
         ArrayAdapter.createFromResource(
@@ -36,30 +40,42 @@ class ChooseClothingType : AppCompatActivity(), AdapterView.OnItemSelectedListen
         //initializing next button
         val nextButton : Button = findViewById(R.id.nextButton)
 
+        //click listener for 'next' button
         nextButton.setOnClickListener{
             val intent = Intent(this, addItem::class.java)
             intent.putExtra("selectedClothingType", selectedType)
-            // make this for result later
-            startActivityForResult(intent, newWordActivityRequestCode2, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
+            startActivityForResult(intent, newItemActivityRequestCode2, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
     }
 
+    /**
+     * what do do if item in spinner is selected
+     */
     override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
         selectedType = parent.getItemAtPosition(pos).toString()
     }
 
+    /**
+     * logs if no item has been selected
+     */
     override fun onNothingSelected(parent: AdapterView<*>) {
         // Another interface callback
         Log.d("problem", "problem selecting clothing type")
     }
 
+    /**
+     * passes new photo data along to the main activity to be added
+     * else shows error to user
+     * resultCode - (newItemActivityRequestCode2) used to ensure successful addition of photo
+     * data - data of new clothing item to be sent to main activity
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newWordActivityRequestCode2 && resultCode == Activity.RESULT_OK){
+        if (requestCode == newItemActivityRequestCode2 && resultCode == Activity.RESULT_OK){
             setResult(Activity.RESULT_OK, data)
             finish()
         } else {

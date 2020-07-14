@@ -6,6 +6,9 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+/**
+ * List of functions that interact with the Room database
+ */
 @Dao
 interface PhotoDao {
 

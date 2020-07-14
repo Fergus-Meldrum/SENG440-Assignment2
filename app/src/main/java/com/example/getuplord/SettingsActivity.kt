@@ -8,6 +8,9 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
 
+/**
+ * activity for the settings page
+ */
 class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener{
     private val PREF_KEY = "dark_mode"
 
@@ -27,6 +30,9 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         }
     }
 
+    /**
+     * sets app to night mode or back to normal upon preference change
+     */
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (key == "dark_mode"){
             if(sharedPreferences.getBoolean(PREF_KEY, false)){
@@ -37,12 +43,18 @@ class SettingsActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferen
         }
     }
 
+    /**
+     * if app is started after being stopped the stored preferences are retrieved
+     */
     override fun onResume() {
         super.onResume()
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
+    /**
+     * if app is stopped preferences are stored so they can be reterived when app is started again
+     */
     override fun onPause() {
         super.onPause()
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)

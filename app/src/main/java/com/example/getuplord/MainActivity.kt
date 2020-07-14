@@ -22,17 +22,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var photoViewModel: PhotoViewModel
 
+    /**
+     * Landing page
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //initalise the viewModel
+        //initialising the viewModel
         photoViewModel = ViewModelProvider(this).get(PhotoViewModel::class.java)
 
         val addItemButton: Button = findViewById(R.id.addItemButton)
 
+        //click listener for button to add an item
         addItemButton.setOnClickListener {
-            //change this to start activity for result later
             val intent = Intent(this, ChooseClothingType::class.java)
             startActivityForResult(intent, newPhotoActivityRequestCode, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
@@ -40,20 +43,26 @@ class MainActivity : AppCompatActivity() {
         //button for creating an outfit
         val createOutfitButton: Button = findViewById(R.id.createOutfitButton)
         createOutfitButton.setOnClickListener {
-            //change this to start activity for result later
             val intent = Intent(this, CreateOutfit::class.java)
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         }
 
+        //setting action bar on home landing page
         setSupportActionBar(findViewById(toolbar))
     }
 
+    /**
+     * sets options for hamburger menu in top right of landing page
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.main_menu_actions, menu)
         return true
     }
 
+    /**
+     * determines what do do if user clicks on an option from the hamburger menu
+      */
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -68,6 +77,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * adds new photo to database if result code is satisfied
+     * else displays error message
+     * requestCode - the code given (newPhotoActivityRequestCode) when add item activity is started
+     * data - the data sent back after add new item activity finishes
+     */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

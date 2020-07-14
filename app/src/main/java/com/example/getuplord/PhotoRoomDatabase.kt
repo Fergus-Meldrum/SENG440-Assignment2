@@ -5,7 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-// Annotates class to be a Room Database with a table (entity) of the Photo class
+/**
+ * Annotates class to be a Room Database with a table (entity) of the Photo class
+ */
 @Database(entities = arrayOf(Photo::class), version = 1, exportSchema = false)
 public abstract class PhotoRoomDatabase : RoomDatabase() {
 
@@ -17,6 +19,9 @@ public abstract class PhotoRoomDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: PhotoRoomDatabase? = null
 
+        /**
+         * gets Room database access
+         */
         fun getDatabase(context: Context): PhotoRoomDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
